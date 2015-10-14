@@ -1,2 +1,2 @@
 # granite
-Bootstrap a django website. Based on mezzanine cms.
+Bootstrap a django based website. Complete with a simple home brewed cms solution.
