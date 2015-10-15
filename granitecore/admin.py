@@ -19,7 +19,7 @@ class TemplateAdmin(admin.ModelAdmin):
 
 @admin.register(Page)
 class PageAdmin(admin.ModelAdmin):
-    pass
+    list_display = ('title', 'handle',)
 
 
 @admin.register(Website)

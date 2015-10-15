@@ -1,3 +1,5 @@
+import os
+
 from django.db import models
 from django.contrib.auth.models import User
 from django.db.models.signals import post_save, pre_delete
@@ -11,6 +13,7 @@ class Asset(models.Model):
 
 class Website(models.Model):
     name = models.CharField(max_length=100)
+    handle = models.CharField(max_length=100)
     favicon = models.ForeignKey(Asset, blank=True, null=True, related_name='favicons')
     brand_small = models.ForeignKey(Asset, blank=True, null=True, related_name='branding_small')
     brand_medium = models.ForeignKey(Asset, blank=True, null=True, related_name='branding_medium')
@@ -37,6 +40,14 @@ class Template(models.Model):
     def fs_name(self):
         return "%i_%s" % (int(self.pk), self.name)
 
+    @property
+    def fs_full_path(self):
+        return '/'.join((self.fs_path, self.fs_name))
+
+    @property
+    def path(self):
+        return '/'.join(('gen', self.site.name.replace(' ', '_'), self.fs_name))
+
 
 class Page(models.Model):
     site = models.ForeignKey(Website)
@@ -50,29 +61,26 @@ class Page(models.Model):
     published = models.DateTimeField(blank=True)
     publish_at = models.DateTimeField(blank=True)
     unpublish_at = models.DateTimeField(blank=True)
+    role = models.CharField(max_length=16, default='', blank=True)
 
     def __str__(self):
-        return "//%s/%s" % (self.site.name.replace(' ', '_'), self.title)
+        return "%s/%s" % (self.site.name.replace(' ', '_'), self.title)
 
 
 # Signal handlers
 @receiver(post_save, sender=Template)
 def template_post_save_handler(sender, **kwargs):
-    print(sender, kwargs)
-    import os
-    print(os.getcwd())
     template = kwargs['instance']
 
     if not os.path.exists(template.fs_path):
         os.makedirs(template.fs_path)
 
-    outfile = os.path.join(template.fs_path, template.fs_name)
-    with open(outfile, 'w') as f:
+    with open(template.fs_full_path, 'w') as f:
         f.write(template.text)
     return
 
 
 @receiver(pre_delete, sender=Template)
-def template_post_delete_handler(sender, **kwargs):
+def template_pre_delete_handler(sender, **kwargs):
     print(sender, kwargs)
     return
