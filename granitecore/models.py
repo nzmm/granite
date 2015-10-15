@@ -74,9 +74,6 @@ class Page(models.Model):
     mauthor = models.ForeignKey(User)
     mtime = models.DateTimeField(auto_now=True)
     published = models.BooleanField(default=True)
-    published_at = models.DateTimeField(blank=True)
-    publish_at = models.DateTimeField(blank=True)
-    unpublish_at = models.DateTimeField(blank=True)
 
     def __str__(self):
         return "%s/%s" % (self.site.handle, self.title)

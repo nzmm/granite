@@ -59,6 +59,5 @@ target/
 # Additions
 *.secret
 *.idea
-*migrations
 db.sqlite3
 granitecore/templates/gen

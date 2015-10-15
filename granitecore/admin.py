@@ -1,4 +1,6 @@
 from django.contrib import admin
+from reversion.admin import VersionAdmin
+
 from .models import (
     PlainTextAsset,
     FileAsset,
@@ -9,22 +11,22 @@ from .models import (
 
 
 @admin.register(PlainTextAsset)
-class PlainTextAssetAdmin(admin.ModelAdmin):
-    list_display = ('name',)
+class PlainTextAssetAdmin(VersionAdmin):
+    list_display = ('handle',)
 
 
 @admin.register(FileAsset)
 class FileAssetAdmin(admin.ModelAdmin):
-    list_display = ('name', 'file')
+    list_display = ('handle', 'file')
 
 
 @admin.register(Template)
-class TemplateAdmin(admin.ModelAdmin):
+class TemplateAdmin(VersionAdmin):
     pass
 
 
 @admin.register(Page)
-class PageAdmin(admin.ModelAdmin):
+class PageAdmin(VersionAdmin):
     list_display = ('title', 'handle', 'role')
 
 
