@@ -16,12 +16,12 @@ class Website(models.Model):
 
 
 class PlainTextAsset(models.Model):
-    name = models.CharField(max_length=48)
+    handle = models.CharField(max_length=48)
     text = models.TextField(default='')
 
 
 class FileAsset(models.Model):
-    name = models.CharField(max_length=48)
+    handle = models.CharField(max_length=48)
     file = models.FileField(upload_to='assets')
 
 
