@@ -15,13 +15,11 @@ Including another URLconf
 """
 from django.conf.urls import include, url
 from django.contrib import admin
-
-from granitecore.views import home_page_handler
 from granitecore import urls as granite_urls
 
 
 urlpatterns = [
     url(r'^admin/', include(admin.site.urls)),
-    url(r'^pages/', include(granite_urls)),
-    url(r'$', home_page_handler),
+    url(r'^pages/', granite_urls.url_handler),
+    url(r'$', granite_urls.url_handler),
 ]

@@ -1,14 +1,20 @@
 from django.contrib import admin
 from .models import (
-    Asset,
+    PlainTextAsset,
+    FileAsset,
     Template,
     Page,
     Website,
 )
 
 
-@admin.register(Asset)
-class AssetAdmin(admin.ModelAdmin):
+@admin.register(PlainTextAsset)
+class PlainTextAssetAdmin(admin.ModelAdmin):
+    list_display = ('name',)
+
+
+@admin.register(FileAsset)
+class FileAssetAdmin(admin.ModelAdmin):
     list_display = ('name', 'file')
 
 
@@ -19,7 +25,7 @@ class TemplateAdmin(admin.ModelAdmin):
 
 @admin.register(Page)
 class PageAdmin(admin.ModelAdmin):
-    list_display = ('title', 'handle',)
+    list_display = ('title', 'handle', 'role')
 
 
 @admin.register(Website)

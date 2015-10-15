@@ -59,7 +59,9 @@ ROOT_URLCONF = 'granite.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [
+            'granitecore/templates/gen/',
+        ],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [

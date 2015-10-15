@@ -1,22 +1,20 @@
 from django.shortcuts import render
 from granitecore.models import Page
 from django.db.models import Q
-
-
-def home_page_handler(request):
-    print(request.path)
-    pages = Page.objects.filter(Q(handle='/') | Q(role='home'))
-    if not pages:
-        return render(request, 'nopages.html', {})
-
-    page = pages.first()
-    return render(request, page.template.path, {'content': page.content, 'path': request.path})
+from granite.utils.views import std_contextual_data
 
 
 def url_handler(request):
-    pages = Page.objects.filter(handle=request.path)
+    data = std_contextual_data(request)
+
+    if request.path == '/':
+        pages = Page.objects.filter(Q(handle='/') | Q(role=Page.HOME))
+    else:
+        pages = Page.objects.filter(handle=request.path)
     if not pages:
-        return render(request, 'nopages.html', {})
+        return render(request, 'nopages.html', data)
 
     page = pages.first()
-    return render(request, page.template.path, {'content': page.content, 'path': request.path})
+    data.update({'page': page})
+
+    return render(request, page.template.path, data)
