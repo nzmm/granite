@@ -53,10 +53,12 @@ class Page(models.Model):
 
     NONE = 'NN'
     HOME = 'HM'
+    ERROR = 'ER'
 
     PAGE_ROLES = (
-        (NONE, 'None'),
-        (HOME, 'Home'),
+        (NONE, 'Standard Page'),
+        (HOME, 'Home Page'),
+        (ERROR, 'Error Page'),
     )
 
     title = models.CharField(max_length=100)
