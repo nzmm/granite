@@ -1,13 +1,14 @@
 __author__ = 'matthew'
 
+import os
+from granite.utils.crypto import generate_secret_key
 
-def read_secret(path='granite/.secret/my.secret'):
-    try:
+
+def read_secret(path='.secret/my.secret'):
+    if not os.path.exists(path):
+        sk = generate_secret_key()
+    else:
         with open(path, 'r') as f:
             sk = f.read().strip()
-    except IOError as e:
-        raise IOError('Could not read seceret.  Please ensure %s exists and is readbale.' % path)
-    if not sk:
-        raise ValueError('Secrete cannot be an empty string')
     return sk
-    
+
