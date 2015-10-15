@@ -34,7 +34,7 @@ class Template(models.Model):
 
     @property
     def fs_path(self):
-        return "granitecore/templates/%s" % self.site.handle.replace(' ', '_')
+        return "granitecore/templates/%s" % self.site.handle
 
     @property
     def fs_name(self):
@@ -72,7 +72,7 @@ class Page(models.Model):
     unpublish_at = models.DateTimeField(blank=True)
 
     def __str__(self):
-        return "%s/%s" % (self.site.handle.replace(' ', '_'), self.title)
+        return "%s/%s" % (self.site.handle, self.title)
 
 
 # Signal handlers
