@@ -6,7 +6,12 @@ from django.db.models.signals import post_save, pre_delete
 from django.dispatch import receiver
 
 
-class Asset(models.Model):
+class PlainTextAsset(models.Model):
+    name = models.CharField(max_length=48)
+    text = models.TextField(default='')
+
+
+class FileAsset(models.Model):
     name = models.CharField(max_length=48)
     file = models.FileField(upload_to='assets')
 
@@ -14,31 +19,26 @@ class Asset(models.Model):
 class Website(models.Model):
     name = models.CharField(max_length=100)
     handle = models.CharField(max_length=100)
-    favicon = models.ForeignKey(Asset, blank=True, null=True, related_name='favicons')
-    brand_small = models.ForeignKey(Asset, blank=True, null=True, related_name='branding_small')
-    brand_medium = models.ForeignKey(Asset, blank=True, null=True, related_name='branding_medium')
-    brand_large = models.ForeignKey(Asset, blank=True, null=True, related_name='branding_large')
-    brand_original = models.ForeignKey(Asset, blank=True, null=True, related_name='branding_original')
+    authors = models.CharField(max_length=255)
 
     def __str__(self):
         return self.name
 
 
 class Template(models.Model):
-    site = models.ForeignKey(Website)
     name = models.CharField(max_length=48)
     text = models.TextField(default='')
 
     def __str__(self):
-        return "%s/%s" % (self.site.name.replace(' ', '_'), self.name)
+        return "%s/%s" % (self.site.handle, self.name)
 
     @property
     def fs_path(self):
-        return "granitecore/templates/gen/%s" % self.site.name.replace(' ', '_')
+        return "granitecore/templates/%s" % self.site.handle.replace(' ', '_')
 
     @property
     def fs_name(self):
-        return "%i_%s" % (int(self.pk), self.name)
+        return self.name.lower().replace(' ', '_')
 
     @property
     def fs_full_path(self):
@@ -46,25 +46,33 @@ class Template(models.Model):
 
     @property
     def path(self):
-        return '/'.join(('gen', self.site.name.replace(' ', '_'), self.fs_name))
+        return '/'.join((self.site.handle, self.fs_name))
 
 
 class Page(models.Model):
-    site = models.ForeignKey(Website)
+
+    NONE = 'NN'
+    HOME = 'HM'
+
+    PAGE_ROLES = (
+        (NONE, 'None'),
+        (HOME, 'Home'),
+    )
+
     title = models.CharField(max_length=100)
     handle = models.CharField(max_length=100)
     content = models.TextField(default='')
     template = models.ForeignKey(Template)
+    role = models.CharField(max_length=2, choices=PAGE_ROLES, default=NONE)
     visible = models.BooleanField(default=True)
-    mtime = models.DateTimeField(auto_now=True)
     mauthor = models.ForeignKey(User)
+    mtime = models.DateTimeField(auto_now=True)
     published = models.DateTimeField(blank=True)
     publish_at = models.DateTimeField(blank=True)
     unpublish_at = models.DateTimeField(blank=True)
-    role = models.CharField(max_length=16, default='', blank=True)
 
     def __str__(self):
-        return "%s/%s" % (self.site.name.replace(' ', '_'), self.title)
+        return "%s/%s" % (self.site.handle.replace(' ', '_'), self.title)
 
 
 # Signal handlers

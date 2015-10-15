@@ -14,8 +14,7 @@ def home_page_handler(request):
 
 
 def url_handler(request):
-    print(request.path)
-    pages = Page.objects.filter(pk=1)
+    pages = Page.objects.filter(handle=request.path)
     if not pages:
         return render(request, 'nopages.html', {})
 
