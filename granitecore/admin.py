@@ -1,7 +1,9 @@
+from django.db import models
 from django.contrib import admin
 from reversion.admin import VersionAdmin
 
-from .models import (
+from granitecore.widgets import TemplateEditor
+from granitecore.models import (
     PlainTextAsset,
     FileAsset,
     Template,
@@ -22,7 +24,9 @@ class FileAssetAdmin(admin.ModelAdmin):
 
 @admin.register(Template)
 class TemplateAdmin(VersionAdmin):
-    pass
+    formfield_overrides = {
+        models.TextField: {'widget': TemplateEditor},
+    }
 
 
 @admin.register(Page)
