@@ -6,8 +6,8 @@ from django.forms.utils import flatatt
 from django.utils.html import format_html
 
 
-EDITOR_HTML = """
-<br><br><textarea{} style="display:none;" readonly>{}</textarea><div id="g-template-editor" style="border-radius:2px;border:2px solid #aaa;width:100%;min-height:600px;">{}</div>
+TEMPLATE_EDITOR_HTML = """
+<br><br><textarea{} style="display:none;" readonly>{}</textarea><div id="g-template-editor" style="border-radius:2px;border:2px solid #aaa;width:100%;min-height:500px;">{}</div>
 """
 
 
@@ -23,4 +23,4 @@ class TemplateEditor(Widget):
         if value is None:
             value = ''
         final_attrs = self.build_attrs(attrs, name=name)
-        return format_html(EDITOR_HTML, flatatt(final_attrs), force_text(value), force_text(value), final_attrs['id'])
+        return format_html(TEMPLATE_EDITOR_HTML, flatatt(final_attrs), force_text(value), force_text(value), final_attrs['id'])

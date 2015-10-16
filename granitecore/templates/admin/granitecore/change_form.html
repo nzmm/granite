@@ -19,11 +19,10 @@
     <script>
         (function() {
             var editor = ace.edit("g-template-editor");
-            //editor.getSession().setMode("ace/mode/html");
+            editor.getSession().setMode("/ace/mode/html");
 
             editor.on("change", function(e) {
-                console.log(e);
-                document.getElementById('id_markup').value = editor.getValue();
+                document.querySelector('textarea:read-only').value = editor.getValue();
             });
         })();
     </script>

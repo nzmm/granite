@@ -15,6 +15,9 @@ from granitecore.models import (
 @admin.register(PlainTextAsset)
 class PlainTextAssetAdmin(VersionAdmin):
     list_display = ('handle',)
+    formfield_overrides = {
+        models.TextField: {'widget': TemplateEditor},
+    }
 
 
 @admin.register(FileAsset)
