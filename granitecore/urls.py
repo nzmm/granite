@@ -17,5 +17,4 @@ from django.conf.urls import url
 from granitecore.views import url_handler
 
 urlpatterns = [
-    url(r'^', url_handler),
 ]

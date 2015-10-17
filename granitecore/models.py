@@ -5,15 +5,15 @@ from django.contrib.auth.models import User
 from django.db.models.signals import post_save, pre_delete
 from django.dispatch import receiver
 
+from granite import validators
+
 
 class FSDuplicate(object):
     TEMPLATE_REL_ROOT = ''
     FS_ROOT = ''
-    handle = ''
-
-    @property
-    def site(self):
-        return Website.objects.get(pk=1)
+    # stubs
+    handle = None
+    site = None
 
     @property
     def fs_path(self):
@@ -56,6 +56,7 @@ class Website(models.Model):
 class PlainTextAsset(models.Model, FSDuplicate):
     FS_ROOT = 'static/gen'
 
+    site = models.ForeignKey(Website)
     handle = models.CharField(max_length=48)
     text = models.TextField(default='')
 
@@ -72,6 +73,7 @@ def plaintext_asset_post_save_handler(sender, **kwargs):
 
 
 class FileAsset(models.Model, FSDuplicate):
+    site = models.ForeignKey(Website)
     handle = models.CharField(max_length=48)
     file = models.FileField(upload_to='assets')
 
@@ -83,6 +85,7 @@ class FileAsset(models.Model, FSDuplicate):
 class Template(models.Model, FSDuplicate):
     FS_ROOT = 'granitecore/templates/gen'
 
+    site = models.ForeignKey(Website)
     handle = models.CharField(max_length=48)
     markup = models.TextField(default='')
 
@@ -119,19 +122,15 @@ class Page(models.Model):
         (ERROR, 'Error Page'),
     )
 
+    site = models.ForeignKey(Website)
     title = models.CharField(max_length=100)
-    handle = models.CharField(max_length=100)
+    handle = models.CharField(max_length=100, default='/pages/', validators=[validators.validate_handle])
     content = models.TextField(default='')
     template = models.ForeignKey(Template)
     role = models.CharField(max_length=2, choices=PAGE_ROLES, default=NONE)
-    mauthor = models.ForeignKey(User)
+    page_author = models.ForeignKey(User)
     mtime = models.DateTimeField(auto_now=True)
     published = models.BooleanField(default=True)
 
     def __str__(self):
         return "%s/%s" % (self.site.handle, self.title)
-
-    @property
-    def site(self):
-        return Website.objects.get(pk=1)
-

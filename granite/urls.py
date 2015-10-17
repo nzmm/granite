@@ -20,6 +20,6 @@ from granitecore import urls as granite_urls
 
 urlpatterns = [
     url(r'^admin/', include(admin.site.urls)),
-    url(r'^pages/', granite_urls.url_handler),
-    url(r'$', granite_urls.url_handler),
+    url(r'^(?P<site_handle>\w+)/$', granite_urls.url_handler),
+    url(r'^(?P<site_handle>\w+)/pages/', granite_urls.url_handler),
 ]

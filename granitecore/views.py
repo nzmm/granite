@@ -1,16 +1,16 @@
 from django.shortcuts import render
 from granitecore.models import Page
-from django.db.models import Q
 from granite.utils.views import std_contextual_data
 
 
-def url_handler(request):
-    data = std_contextual_data(request)
+def url_handler(request, site_handle):
+    path = request.path.split(site_handle, 1)[-1]
+    data = std_contextual_data(request, site_handle)
 
-    if request.path == '/':
-        pages = Page.objects.filter(Q(handle='/') | Q(role=Page.HOME))
+    if path == '/':
+        pages = Page.objects.filter(site__handle=site_handle, role=Page.HOME, published=True)
     else:
-        pages = Page.objects.filter(handle=request.path)
+        pages = Page.objects.filter(site__handle=site_handle, handle=path, published=True)
     if not pages:
         return render(request, 'nopages.html', data)
 
