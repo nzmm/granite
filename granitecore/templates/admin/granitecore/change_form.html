@@ -4,6 +4,7 @@
     <script src="/static/ace.js" type="text/javascript" charset="utf-8"></script>
     <script>
         (function() {
+            // template loader
             var editor = ace.edit("g-template-editor");
             editor.setFontSize(15);
             editor.setTheme("ace/theme/chrome");
@@ -12,7 +13,20 @@
             editor.on("change", function(e) {
                 document.querySelector('textarea:read-only').value = editor.getValue();
             });
+            // content guesser: TODO
+            // Ctrl+S
+            document.addEventListener("keydown", function(e) {
+              if (e.keyCode == 83 && (navigator.platform.match("Mac") ? e.metaKey : e.ctrlKey)) {
+                e.preventDefault();
+                if (confirm('Are super sure you want to save thingy???')) {
+                    // Save it!
+                } else {
+                    // Do nothing!
+                }
+              }
+            }, false);
         })();
+
     </script>
 
     {{ block.super }}
