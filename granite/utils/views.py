@@ -1,6 +1,6 @@
 __author__ = 'matthew'
 
-from granitecore.models import Website
+from websites.models import Website
 
 
 def std_contextual_data(request, site_handle):

@@ -1,0 +1,11 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{{ path }} &mdash; No page exists here</title>
+</head>
+<body>
+    <p>{{ path }} &mdash; No page exists here</p>
+    {% if user.is_superuser %}<a href="/admin/" target="_blank">Admin</a>{% endif %}
+</body>
+</html>

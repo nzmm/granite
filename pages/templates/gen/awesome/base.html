@@ -1,0 +1,153 @@
+{% load pages_extras %}
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="{{ page.description }}">
+    <meta name="author" content="{{ site.authors }}">
+    <link rel="icon" href="../../favicon.ico">
+
+    <title>{{ site.name }} &ndash; {{ page.title }}</title>
+
+    <!-- Bootstrap core CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+    <link href='https://fonts.googleapis.com/css?family=Questrial' rel='stylesheet' type='text/css'>
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" rel="stylesheet">
+    {{ site | asset_url:'styles.css' | stylesheet_tag }}
+
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+  </head>
+
+  <body id="page">
+    <!-- Fixed navbar - only visible on mobile -->
+    <nav class="navbar navbar-default navbar-fixed-top visible-xs">
+      <div class="container">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="/">
+              {{ site | asset_url:'navbar_brand.png' | img_tag:'alt="Brothers Brewery" height="40"' }}
+          </a>
+        </div>
+        <div id="navbar" class="navbar-collapse collapse">
+          <ul class="nav navbar-nav">
+            <li><a href="/on-tap">On Tap</a></li>
+            <li><a href="/brews">Our Brews</a></li>
+            <li><a href="/contact">Contact Us</a></li>
+          </ul>
+        </div><!--/.nav-collapse -->
+      </div>
+    </nav>
+
+    <nav class="jj-navbar hidden-xs">
+        <div class="container">
+            <div class="nav-link"><a href="/on-tap">On Tap</a></div>
+            <div class="nav-link"><a href="/brews">Our Brews</a></div>
+            <a href="/">
+                {{ site | asset_url:'navbar_brand.png' | img_tag:'id="jj-brand" alt="Brothers Brewery"' }}
+            </a>
+            <div class="nav-link"><a href="/contact">Contact Us</a></div>
+            <div class="nav-link">
+                <div class="btn-group">
+                  <a class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Sweet Links</a>
+                  <ul class="dropdown-menu">
+                    <li><a href="http://www.brothersbeer.co.nz" target="_blank">Brothers Beer</a></li>
+                    <li><a href="http://www.jukejoint.co.nz" target="_blank">Juke Joint BBQ</a></li>
+<!--
+                    <li role="separator" class="divider"></li>
+                    <li><a href="#">Uptown Beer Quarter</a></li>
+-->
+                  </ul>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <div class="main container">
+        {% block content %}{{ page.content }}{% endblock %}
+    </div> <!-- /container -->
+
+    <!-- Footer -->
+  <div id="footer" class="footer container">
+    <div class="footer row">
+      <div class="col-sm-4">
+        <address>
+          <strong>Brothers Brewery Limited</strong><br>
+          <abbr title="Phone">P:</abbr> +64 (09) 366-6100<br>
+          <a href="mailto:enquiries@brothersbrewery.co.nz">enquiries@brothersbrewery.co.nz</a>
+        </address>
+      </div>
+
+      <div class="col-sm-4">
+        <address>
+          5 Akiraho Street<br>
+          Mount Eden<br>
+          Auckland 1024<br>
+          <a href="https://www.google.com/maps/dir//5+Akiraho+St,+Mt+Eden,+Auckland+1024,+New+Zealand/@-36.8781847,174.7672345,13.26z/data=!4m8!4m7!1m0!1m5!1m1!1s0x6d0d47c5cb1c2f03:0x78c7f0345aed5925!2m2!1d174.7588!2d-36.8684693" class="visible-xs">Get directions</a>
+        </address>
+      </div>
+
+      <div class="col-sm-4">
+        <address id="socialise">
+            <a href="http://twitter.com/brothersbrewerynz" title="Follow Brothers Brewery on Twitter">
+                <span class="fa-stack fa-2x">
+                <i class="fa fa-circle fa-stack-2x"></i>
+                <i class="fa fa-twitter fa-stack-1x fa-inverse"></i>
+                </span>
+            </a>
+            <a href="http://facebook.com/brothersbrewerynz" title="Follow Brothers Brewery on Facebook">
+                <span class="fa-stack fa-2x">
+                <i class="fa fa-circle fa-stack-2x"></i>
+                <i class="fa fa-facebook fa-stack-1x fa-inverse"></i>
+                </span>
+            </a>
+            <a href="http://instagram.com/brothersbrewerynz" title="Follow Brothers Brewery on Instagram">
+                <span class="fa-stack fa-2x">
+                <i class="fa fa-circle fa-stack-2x"></i>
+                <i class="fa fa-instagram fa-stack-1x fa-inverse"></i>
+                </span>
+            </a>
+        </address>
+      </div>
+    </div>
+
+    <img class="beer-sep hidden-xs" src="//cdn.shopify.com/s/files/1/0345/7701/t/1/assets/glasses-white.png?10543108409415957776" alt="Separator">
+
+    <!-- Begin copyright -->
+    <div class="legal-stuff text-center">
+      <p class="copyright">{{ site.copyright }}</p>
+    </div>
+    <!-- End copyright -->
+  </div>
+    <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+    <!-- Large screen navbar size adjuster
+    ================================================== -->
+    <script type="text/javascript">
+    $(document).ready(function() {
+        var brand = $('#jj-brand');
+        $(document).scroll(function(e) {
+            var y = $(this).scrollTop();
+            if (y > 60 && brand.height() > 40) {
+                brand.css({height: 40});
+            } else if (y <= 60 && brand.height() <= 40) {
+                brand.css({height: 80});
+            }
+        });
+    });
+    </script>
+  </body>
+</html>

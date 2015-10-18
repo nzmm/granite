@@ -1,0 +1,85 @@
+{% extends "awesome/base.html" %}
+{% load pages_extras %}
+
+{% block content %}
+        <div class="row">
+            <!-- Carousel -->
+            <div id="brewery-carousel" class="carousel slide hidden-xs" data-ride="carousel">
+              <!-- Indicators -->
+              <ol class="carousel-indicators">
+                <li data-target="#brewery-carousel" data-slide-to="0" class="active"></li>
+                <li data-target="#brewery-carousel" data-slide-to="1"></li>
+                <li data-target="#brewery-carousel" data-slide-to="2"></li>
+                <li data-target="#brewery-carousel" data-slide-to="3"></li>
+                <li data-target="#brewery-carousel" data-slide-to="4"></li>
+                <li data-target="#brewery-carousel" data-slide-to="5"></li>
+                <li data-target="#brewery-carousel" data-slide-to="6"></li>
+                <li data-target="#brewery-carousel" data-slide-to="7"></li>
+              </ol>
+
+              <!-- Wrapper for slides -->
+              <div class="carousel-inner" role="listbox"  style="width: 100%;">
+                <div class="item active">
+                  <img src="/static/img/gallery/bb7.jpg" alt="...">
+                  <div class="carousel-caption"></div>
+                </div>
+
+                <div class="item">
+                  <img src="/static/img/gallery/bb1.jpg" alt="...">
+                  <div class="carousel-caption"></div>
+                </div>
+                
+                <div class="item">
+                  <img src="/static/img/gallery/bb2.jpg" alt="...">
+                  <div class="carousel-caption"></div>
+                </div>
+
+                <div class="item">
+                  <img src="/static/img/gallery/bb3.jpg" alt="...">
+                  <div class="carousel-caption"></div>
+                </div>
+
+                <div class="item">
+                  <img src="/static/img/gallery/bb4.jpg" alt="...">
+                  <div class="carousel-caption"></div>
+                </div>
+
+                <div class="item">
+                  <img src="/static/img/gallery/bb5.jpg" alt="...">
+                  <div class="carousel-caption"></div>
+                </div>
+
+                <div class="item">
+                  <img src="/static/img/gallery/bb6.jpg" alt="...">
+                  <div class="carousel-caption"></div>
+                </div>
+
+                <div class="item">
+                  <img src="/static/img/gallery/bb8.jpg" alt="...">
+                  <div class="carousel-caption"></div>
+                </div>
+
+              </div>
+            </div>
+        </div>
+
+        <div class="row gist">
+            <h1>Production Brewery, American BBQ &amp; Tasting Lounge.<br>New Zealand's best craft beers, 15 on tap. Nice.</h1>
+            <ul>
+              <li>The new Brothers Beer production and distribution hub</li>
+              <li>Bottling line and 12000 litre capacity brewery on site</li>
+              <li>Beer as fresh as it gets; Brothers Beer pouring straight form the tanks</li>
+              <li>New Zealand's best Craft Beers on tap and in bottle</li>
+              <li>Visit Juke Joint for authentic American "slow and low" BBQ</li>
+              <li>Pedal cars, toys and even a sandpit to keep the kids entertained</li>
+              <li>All tucked away in leafy Mount Eden</li>
+            </ul>
+
+            <div id="robot-container" class="hidden-xs">
+              {{ site | asset_url:'yeastiebot.png' | img_tag:'id="robot" alt="All your base are belong to Yeastie ROBOt!"' }}
+              <img id="radiowaves" src="//cdn.shopify.com/s/files/1/0345/7701/t/1/assets/radiowaves2.png?18256014987842690829" alt="BBQ Hmmmmmmm">
+              <a id="bbq-link" href="http://www.jukejoint.co.nz" title="We have BBQ">Also check out<br>Juke Joint BBQ</a>
+            </div>
+      </div>
+      {{ page.content }}
+{% endblock %}

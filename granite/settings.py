@@ -12,7 +12,7 @@ https://docs.djangoproject.com/en/1.8/ref/settings/
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 import os
-from granite.utils.settings import read_secret
+from granite.utils.crypto import read_secret
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
@@ -43,7 +43,9 @@ INSTALLED_APPS = (
     'reversion',
 
     # this-parties
-    'granitecore',
+    'websites',
+    'assets',
+    'pages',
 )
 
 MIDDLEWARE_CLASSES = (
@@ -63,7 +65,8 @@ TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
         'DIRS': [
-            'granitecore/templates/gen/',
+            os.path.join('granite', 'templates'),
+            os.path.join('pages', 'templates', 'gen'),
         ],
         'APP_DIRS': True,
         'OPTIONS': {
@@ -112,6 +115,6 @@ STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 if DEBUG:
     STATICFILES_DIRS = [
-        os.path.join(BASE_DIR, 'assets'),
+        os.path.join(BASE_DIR, 'assets', 'static'),
         os.path.join(BASE_DIR, 'granite', 'static', 'granite', 'js', 'ace-min-noconflict'),
     ]
