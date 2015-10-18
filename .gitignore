@@ -60,5 +60,5 @@ target/
 *.secret
 *.idea
 db.sqlite3
-granitecore/templates/gen
+pages/templates/gen
 static/
