@@ -17,4 +17,4 @@ def url_handler(request, site_handle):
     page = pages.first()
     data.update({'page': page})
 
-    return render(request, page.template.path, data)
+    return render(request, page.template.template_path, data)

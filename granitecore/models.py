@@ -17,6 +17,8 @@ class FSDuplicate(object):
 
     @property
     def fs_path(self):
+        if isinstance(self, PlainTextAsset):
+            return self.FS_ROOT
         return '/'.join((self.FS_ROOT, self.site.handle))
 
     @property
@@ -28,8 +30,10 @@ class FSDuplicate(object):
         return '/'.join((self.fs_path, self.fs_name))
 
     @property
-    def path(self):
+    def template_path(self):
         # django relative template path
+        if isinstance(self, PlainTextAsset):
+            return '/'.join(p for p in (self.TEMPLATE_REL_ROOT, self.fs_name) if p.strip())
         return '/'.join(p for p in (self.TEMPLATE_REL_ROOT, self.site.handle, self.fs_name) if p.strip())
 
     @property
@@ -54,7 +58,7 @@ class Website(models.Model):
 
 
 class PlainTextAsset(models.Model, FSDuplicate):
-    FS_ROOT = 'static/gen'
+    FS_ROOT = 'assets'
 
     site = models.ForeignKey(Website)
     handle = models.CharField(max_length=48)
@@ -72,14 +76,10 @@ def plaintext_asset_post_save_handler(sender, **kwargs):
     return
 
 
-class FileAsset(models.Model, FSDuplicate):
+class FileAsset(models.Model):
     site = models.ForeignKey(Website)
     handle = models.CharField(max_length=48)
     file = models.FileField(upload_to='assets')
-
-    @property
-    def data(self):
-        return self.file
 
 
 class Template(models.Model, FSDuplicate):
@@ -124,10 +124,11 @@ class Page(models.Model):
 
     site = models.ForeignKey(Website)
     title = models.CharField(max_length=100)
-    handle = models.CharField(max_length=100, default='/pages/', validators=[validators.validate_handle])
+    handle = models.CharField(max_length=100, default='/pages/', validators=[validators.validate_page_handle])
     content = models.TextField(default='')
     template = models.ForeignKey(Template)
     role = models.CharField(max_length=2, choices=PAGE_ROLES, default=NONE)
+    quick_link = models.BooleanField(default=False)
     page_author = models.ForeignKey(User)
     mtime = models.DateTimeField(auto_now=True)
     published = models.BooleanField(default=True)

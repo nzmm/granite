@@ -4,7 +4,7 @@ import re
 from django.core.exceptions import ValidationError
 
 
-def validate_handle(value):
+def validate_page_handle(value):
     if not value.startswith('/pages/'):
         raise ValidationError('Page handle should always start with "/pages/" followed by one or more tail components.')
     elif len(value) <= len('/pages/'):
