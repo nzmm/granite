@@ -11,7 +11,7 @@ TEMPLATE_EDITOR_HTML = """
 <textarea{} style="display:none;" readonly>{}</textarea>
 <div style="float:right;position:relative;top:-24px;height:0;margin-bottom:8px;">
     <label for="mode-sel"><strong>Content type:</strong></label>
-    <select id="mode-sel" title="TODO">
+    <select id="g-mode-sel">
         <option value="html">HTML</option>
         <option value="css">CSS</option>
         <option value="javascript">Javascript</option>

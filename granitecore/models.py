@@ -126,13 +126,13 @@ class Page(models.Model):
     site = models.ForeignKey(Website)
     title = models.CharField(max_length=100)
     handle = models.CharField(max_length=100, default='/pages/', validators=[validators.validate_page_handle])
+    page_description = models.CharField(max_length=255, blank=True, default='')
     content = models.TextField(default='')
     template = models.ForeignKey(Template)
     role = models.CharField(max_length=2, choices=PAGE_ROLES, default=NONE)
     quick_link = models.BooleanField(default=False)
-    page_author = models.ForeignKey(User)
-    page_description = models.CharField(max_length=255, blank=True, default='')
     mtime = models.DateTimeField(auto_now=True)
+    page_author = models.ForeignKey(User)
     published = models.BooleanField(default=True)
 
     def __str__(self):
