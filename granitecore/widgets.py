@@ -7,7 +7,17 @@ from django.utils.html import format_html
 
 
 TEMPLATE_EDITOR_HTML = """
-<br><br><textarea{} style="display:none;" readonly>{}</textarea><div id="g-template-editor" style="border-radius:2px;border:2px solid #aaa;width:100%;min-height:500px;">{}</div>
+<br><br>
+<textarea{} style="display:none;" readonly>{}</textarea>
+<div style="float:right;position:relative;top:-24px;height:0;margin-bottom:8px;">
+    <label for="mode-sel"><strong>Content type:</strong></label>
+    <select id="mode-sel">
+        <option value="html">HTML</option>
+        <option value="css">CSS</option>
+        <option value="javascript">Javascript</option>
+    </select>
+</div>
+<div id="g-template-editor" style="border-radius:2px;border:2px solid #aaa;width:100%;min-height:450px;">{}</div>
 """
 
 

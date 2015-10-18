@@ -51,6 +51,7 @@ class FSDuplicate(object):
 class Website(models.Model):
     name = models.CharField(max_length=100)
     handle = models.CharField(max_length=100)
+    description = models.CharField(max_length=255)
     authors = models.CharField(max_length=255)
 
     def __str__(self):
@@ -130,8 +131,13 @@ class Page(models.Model):
     role = models.CharField(max_length=2, choices=PAGE_ROLES, default=NONE)
     quick_link = models.BooleanField(default=False)
     page_author = models.ForeignKey(User)
+    page_description = models.CharField(max_length=255, blank=True, default='')
     mtime = models.DateTimeField(auto_now=True)
     published = models.BooleanField(default=True)
 
     def __str__(self):
         return "%s/%s" % (self.site.handle, self.title)
+
+    @property
+    def description(self):
+        return '%s %s' % (self.site.description, self.page_description)
