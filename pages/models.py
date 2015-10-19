@@ -12,8 +12,8 @@ from websites.models import Website
 
 
 class Template(models.Model, FSDuplicate):
-    TEMPLATE_REL_ROOT = 'gen'
-    FS_ROOT = os.path.join(BASE_DIR, 'pages', 'templates', 'gen')
+    TEMPLATE_REL_ROOT = 'g'
+    FS_ROOT = os.path.join(BASE_DIR, 'pages', 'templates', 'g')
 
     site = models.ForeignKey(Website)
     handle = models.CharField(max_length=48)

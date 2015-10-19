@@ -65,9 +65,7 @@ ROOT_URLCONF = 'granite.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [
-            '/'.join((BASE_DIR, 'pages', 'templates', 'gen')),
-        ],
+        'DIRS': [],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -111,10 +109,10 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.8/howto/static-files/
 
-STATIC_URL = '/static/'
+STATIC_URL = '/granite/static/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 
-MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+MEDIA_ROOT = os.path.join(STATIC_ROOT, 'media')
 
 G_TEXT_ROOT = os.path.join(MEDIA_ROOT, 'plaintext')
 G_FILE_ROOT = os.path.join(MEDIA_ROOT, 'files')

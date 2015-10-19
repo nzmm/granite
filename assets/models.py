@@ -4,7 +4,7 @@ from PIL import Image
 from django.db import models
 from django.db.models.signals import post_save
 from django.dispatch import receiver
-from granite.settings import STATIC_URL, G_TEXT_ROOT
+from granite.settings import STATIC_URL, G_TEXT_ROOT, G_FILE_ROOT
 from granite.core.objects import FSDuplicate
 from websites.models import Website
 
@@ -37,7 +37,7 @@ class FileAsset(models.Model):
 
     site = models.ForeignKey(Website)
     handle = models.CharField(max_length=48)
-    file = models.FileField()
+    file = models.FileField(upload_to=G_FILE_ROOT)
 
     def url(self):
         return '/'.join((STATIC_URL.rstrip('/'), 'media', 'files', os.path.split(self.file.name)[-1]))
