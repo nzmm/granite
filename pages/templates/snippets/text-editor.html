@@ -1,0 +1,54 @@
+    <script src="/static/granite/js/ace-min-noconflict/ace.js" type="text/javascript" charset="utf-8"></script>
+    <script>
+        function splitExt(path) {
+            return path.split('.').pop();
+        }
+        function aceModeFromHandle(editor, handle) {
+            var ext = splitExt(handle.value),
+                      mode;
+            switch(ext) {
+                case 'js':
+                    mode = 'javascript'
+                    break
+                case 'css':
+                    mode = 'css'
+                    break
+                case 'md':
+                    mode = 'md'
+                    break
+                case 'htm':
+                case 'html':
+                default:
+                    mode = 'html'
+                    break
+            }
+            if (editor.getSession().getMode() != mode) {
+                editor.getSession().setMode("ace/mode/" + mode);
+                document.getElementById('g-mode-sel').value = mode;
+            }
+        }
+        (function() {
+            var editor = ace.edit("g-editor");
+            editor.setFontSize(15);
+            editor.setTheme("ace/theme/chrome");
+            editor.on("change", function(e) {
+                document.querySelector('textarea:read-only').value = editor.getValue();
+            });
+            // content guesser
+            var handle = document.querySelector('input[name="handle"]');
+            handle.addEventListener("change", function(e) {
+                aceModeFromHandle(editor, handle);
+            });
+            handle.addEventListener("keyup", function(e) {
+                aceModeFromHandle(editor, handle);
+            });
+            aceModeFromHandle(editor, handle);
+            // Ctrl+S
+            document.addEventListener("keydown", function(e) {
+              if (e.keyCode == 83 && (navigator.platform.match("Mac") ? e.metaKey : e.ctrlKey)) {
+                e.preventDefault();
+                document.querySelector('input[name="_continue"]').click();
+              }
+            }, false);
+        })();
+    </script>
