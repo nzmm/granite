@@ -60,5 +60,5 @@ target/
 *.secret
 *.idea
 db.sqlite3
-pages/templates/gen
+pages/templates/g
 static
