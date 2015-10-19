@@ -1,5 +1,4 @@
 import os
-from granite.settings import BASE_DIR
 from django.utils.crypto import get_random_string
 
 
@@ -17,7 +16,8 @@ def generate_secret_key(path, chars='abcdefghijklmnopqrstuvwxyz0123456789!@#$%^&
         return sk
 
 
-def read_secret(path=os.path.join(BASE_DIR, '.secret', 'my.secret')):
+def read_secret(path=os.path.join('.secret', 'my.secret')):
+    print(os.getcwd())
     if not os.path.exists(path):
         sk = generate_secret_key(path)
         print('Secret key successfully generated.')
