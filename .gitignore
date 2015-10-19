@@ -61,4 +61,4 @@ target/
 *.idea
 db.sqlite3
 pages/templates/gen
-assets/static
+static
