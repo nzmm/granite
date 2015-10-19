@@ -53,7 +53,7 @@ class Page(models.Model):
     title = models.CharField(max_length=100)
     handle = models.CharField(max_length=100, default='/pages/', validators=[validators.validate_page_handle])
     page_description = models.CharField(max_length=255, blank=True, default='')
-    content = models.TextField(default='')
+    content = models.TextField(default='', blank=True)
     template = models.ForeignKey(Template)
     role = models.CharField(max_length=2, choices=PAGE_ROLES, default=NONE)
     quick_link = models.BooleanField(default=False)
@@ -68,7 +68,7 @@ class Page(models.Model):
     def description(self):
         def _fullstop(s):
             s = s.strip()
-            if not s.endswith('.'):
+            if s and not s.endswith('.'):
                 s += '.'
             return s
-        return ' '.join(_fullstop(desc) for desc in (self.site.description, self.page_description))
+        return _fullstop(self.page_description) or _fullstop(self.site.description)
