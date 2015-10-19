@@ -65,8 +65,8 @@ TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
         'DIRS': [
-            os.path.join('granite', 'templates'),
-            os.path.join('pages', 'templates', 'gen'),
+            os.path.join(BASE_DIR, 'granite', 'templates'),
+            os.path.join(BASE_DIR, 'pages', 'templates', 'gen'),
         ],
         'APP_DIRS': True,
         'OPTIONS': {
