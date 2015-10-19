@@ -1,16 +1,18 @@
+import os
 import markdown
 from django.db import models
+from granite.settings import BASE_DIR
 from django.contrib.auth.models import User
 from django.utils.safestring import mark_safe
 from django.db.models.signals import post_save, pre_delete
 from django.dispatch import receiver
-from granite import validators
 from granite.core.objects import FSDuplicate
+from granite import validators
 from websites.models import Website
 
 
 class Template(models.Model, FSDuplicate):
-    FS_ROOT = 'pages/templates/gen'
+    FS_ROOT = os.path.join(BASE_DIR, 'pages', 'templates', 'gen')
 
     site = models.ForeignKey(Website)
     handle = models.CharField(max_length=48)

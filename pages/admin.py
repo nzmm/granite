@@ -1,28 +1,26 @@
-from django.db import models
 from django.contrib import admin
 from django.contrib.auth.models import User
 from reversion.admin import VersionAdmin
-from granite.widgets import TextEditor, ContentEditor
 from pages.models import (
     Template,
     Page,
+)
+from pages.forms import (
+    TemplateAdminForm,
+    PageAdminForm
 )
 
 
 @admin.register(Template)
 class TemplateAdmin(VersionAdmin):
-    formfield_overrides = {
-        models.TextField: {'widget': TextEditor},
-    }
+    form = TemplateAdminForm
 
 
 @admin.register(Page)
 class PageAdmin(VersionAdmin):
     list_display = ('title', 'site', 'handle', 'role', 'description')
     ordering = ('site', 'role', 'title')
-    formfield_overrides = {
-        models.TextField: {'widget': ContentEditor},
-    }
+    form = PageAdminForm
 
     def formfield_for_foreignkey(self, db_field, request=None, **kwargs):
         if db_field.name == 'page_author':

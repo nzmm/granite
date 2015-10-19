@@ -4,14 +4,14 @@ from PIL import Image
 from django.db import models
 from django.db.models.signals import post_save
 from django.dispatch import receiver
-from granite.settings import STATIC_URL
+from granite.settings import BASE_DIR, STATIC_URL
 from granite.core.objects import FSDuplicate
 from websites.models import Website
 
 
 class PlainTextAsset(models.Model, FSDuplicate):
     ASSET_TYPE_NAME = 'text'
-    FS_ROOT = os.path.join('assets', 'static')
+    FS_ROOT = os.path.join(BASE_DIR, 'assets', 'static')
 
     site = models.ForeignKey(Website)
     handle = models.CharField(max_length=48)
