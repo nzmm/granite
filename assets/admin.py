@@ -1,7 +1,6 @@
-from django.db import models
 from django.contrib import admin
 from reversion.admin import VersionAdmin
-from granite.widgets import TextEditor
+from assets.forms import PlainTextAssetAdminForm
 from assets.models import (
     PlainTextAsset,
     FileAsset,
@@ -11,9 +10,7 @@ from assets.models import (
 @admin.register(PlainTextAsset)
 class PlainTextAssetAdmin(VersionAdmin):
     list_display = ('handle',)
-    formfield_overrides = {
-        models.TextField: {'widget': TextEditor},
-    }
+    form = PlainTextAssetAdminForm
 
 
 @admin.register(FileAsset)
