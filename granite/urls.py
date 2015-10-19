@@ -21,6 +21,5 @@ from pages import urls as page_urls
 admin.site.site_header = 'Granite administration'
 urlpatterns = [
     url(r'^admin/', include(admin.site.urls)),
-    url(r'^(?P<site_handle>\w+)/$', page_urls.retriever),
-    url(r'^(?P<site_handle>\w+)/pages/', page_urls.retriever),
+    url(r'^', include(page_urls)),
 ]

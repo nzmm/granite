@@ -1,7 +1,10 @@
 {% extends "admin/change_form.html" %}
-
+{% load pages_extras %}
 {% block admin_change_form_document_ready %}
-    {% include "snippets/editor.html" %}
-
+    {% if title|iendswith:'page' %}
+    {% include "snippets/content-editor.html" %}
+    {% elif title|iendswith:'template' %}
+    {% include "snippets/text-editor.html" %}
+    {% endif %}
     {{ block.super }}
 {% endblock %}

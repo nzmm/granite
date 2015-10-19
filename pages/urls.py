@@ -17,4 +17,6 @@ from django.conf.urls import url
 from pages.views import retriever
 
 urlpatterns = [
+    url(r'^(?P<site_handle>\w+)/$', retriever),
+    url(r'^(?P<site_handle>\w+)/pages/', retriever),
 ]

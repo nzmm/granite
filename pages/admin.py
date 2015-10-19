@@ -2,7 +2,7 @@ from django.db import models
 from django.contrib import admin
 from django.contrib.auth.models import User
 from reversion.admin import VersionAdmin
-from granite.widgets import TextEditor
+from granite.widgets import TextEditor, ContentEditor
 from pages.models import (
     Template,
     Page,
@@ -20,6 +20,9 @@ class TemplateAdmin(VersionAdmin):
 class PageAdmin(VersionAdmin):
     list_display = ('title', 'site', 'handle', 'role', 'description')
     ordering = ('site', 'role', 'title')
+    formfield_overrides = {
+        models.TextField: {'widget': ContentEditor},
+    }
 
     def formfield_for_foreignkey(self, db_field, request=None, **kwargs):
         if db_field.name == 'page_author':

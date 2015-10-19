@@ -13,27 +13,28 @@
                 case 'css':
                     mode = 'css'
                     break
+                case 'md':
+                    mode = 'md'
+                    break
                 case 'htm':
                 case 'html':
                 default:
                     mode = 'html'
                     break
             }
-            console.log(editor.getSession().getMode());
             if (editor.getSession().getMode() != mode) {
                 editor.getSession().setMode("ace/mode/" + mode);
                 document.getElementById('g-mode-sel').value = mode;
             }
         }
         (function() {
-            // template loader
-            var editor = ace.edit("g-template-editor");
+            var editor = ace.edit("g-editor");
             editor.setFontSize(15);
             editor.setTheme("ace/theme/chrome");
             editor.on("change", function(e) {
                 document.querySelector('textarea:read-only').value = editor.getValue();
             });
-            // content guesser: TODO
+            // content guesser
             var handle = document.querySelector('input[name="handle"]');
             handle.addEventListener("change", function(e) {
                 aceModeFromHandle(editor, handle);
@@ -50,5 +51,4 @@
               }
             }, false);
         })();
-
     </script>

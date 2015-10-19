@@ -32,3 +32,8 @@ def script_tag(url):
 @register.filter
 def img_tag(url, attrs=''):
     return mark_safe('<img src="%s" %s>' % (url, attrs))
+
+
+@register.filter
+def iendswith(a, b):
+    return a.lower().endswith(b.lower())

@@ -1,5 +1,7 @@
+import markdown
 from django.db import models
 from django.contrib.auth.models import User
+from django.utils.safestring import mark_safe
 from django.db.models.signals import post_save, pre_delete
 from django.dispatch import receiver
 from granite import validators
@@ -54,7 +56,6 @@ class Page(models.Model):
     content = models.TextField(default='', blank=True)
     template = models.ForeignKey(Template)
     role = models.CharField(max_length=2, choices=PAGE_ROLES, default=NONE)
-    quick_link = models.BooleanField(default=False)
     page_author = models.ForeignKey(User)
     published = models.BooleanField(default=True)
     mtime = models.DateTimeField(auto_now=True)
@@ -70,3 +71,7 @@ class Page(models.Model):
                 s += '.'
             return s
         return _fullstop(self.page_description) or _fullstop(self.site.description)
+
+    @property
+    def content_html(self):
+        return mark_safe(markdown.markdown(self.content))
