@@ -12,6 +12,7 @@ from websites.models import Website
 
 
 class Template(models.Model, FSDuplicate):
+    TEMPLATE_REL_ROOT = 'gen'
     FS_ROOT = os.path.join(BASE_DIR, 'pages', 'templates', 'gen')
 
     site = models.ForeignKey(Website)
