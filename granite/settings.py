@@ -115,3 +115,4 @@ STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 
 G_ASSET_ROOT = os.path.join(STATIC_ROOT, 'a')
+G_FILE_ROOT = os.path.join(STATIC_ROOT, 'f')
