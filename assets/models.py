@@ -4,7 +4,7 @@ from PIL import Image
 from django.db import models
 from django.db.models.signals import post_save
 from django.dispatch import receiver
-from granite.settings import G_FILE_ROOT, STATIC_URL, G_TEXT_ROOT
+from granite.settings import STATIC_URL, G_TEXT_ROOT
 from granite.core.objects import FSDuplicate
 from websites.models import Website
 
@@ -22,7 +22,7 @@ class PlainTextAsset(models.Model, FSDuplicate):
         return self.text
 
     def url(self):
-        return '/'.join((STATIC_URL.rstrip('/'), 'a', self.handle))
+        return '/'.join((STATIC_URL.rstrip('/'), 'media', 'plaintext', self.handle))
 
 
 # PlainTextAsset signal handlers
@@ -37,10 +37,10 @@ class FileAsset(models.Model):
 
     site = models.ForeignKey(Website)
     handle = models.CharField(max_length=48)
-    file = models.FileField(upload_to=G_FILE_ROOT)
+    file = models.FileField()
 
     def url(self):
-        return '/'.join((STATIC_URL.rstrip('/'), os.path.split(self.file.name)[-1]))
+        return '/'.join((STATIC_URL.rstrip('/'), 'media', 'files', os.path.split(self.file.name)[-1]))
     url.short_description = 'URL'
 
     def thumbnail_small(self):
@@ -51,6 +51,8 @@ class FileAsset(models.Model):
                     'height="36"></p>')
 
         return '<p style="text-align:center;width:64px;"><img src="%s" height="36"></p>' % self.url()
+    thumbnail_small.short_description = 'File preview'
+    thumbnail_small.allow_tags = True
 
     def thumbnail_large(self):
         try:
@@ -61,8 +63,5 @@ class FileAsset(models.Model):
 
         return ('<p style="text-align:center;max-width:128px;padding:15px;">'
                 '<img src="%s" height="84"></p>' % self.url())
-
-    thumbnail_small.short_description = 'File preview'
-    thumbnail_small.allow_tags = True
     thumbnail_large.short_description = 'File preview'
     thumbnail_large.allow_tags = True
