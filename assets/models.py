@@ -11,6 +11,7 @@ from websites.models import Website
 
 class PlainTextAsset(models.Model, FSDuplicate):
     ASSET_TYPE_NAME = 'text'
+    TEMPLATE_REL_ROOT = 'gen'
     FS_ROOT = os.path.join(BASE_DIR, 'assets', 'static')
 
     site = models.ForeignKey(Website)

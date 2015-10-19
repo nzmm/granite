@@ -43,6 +43,7 @@ INSTALLED_APPS = (
     'reversion',
 
     # this-parties
+    'granitecore',
     'websites',
     'assets',
     'pages',
@@ -65,8 +66,7 @@ TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
         'DIRS': [
-            os.path.join(BASE_DIR, 'granite', 'templates'),
-            os.path.join(BASE_DIR, 'pages', 'templates', 'gen'),
+            '/'.join((BASE_DIR, 'pages', 'templates', 'gen')),
         ],
         'APP_DIRS': True,
         'OPTIONS': {
@@ -116,5 +116,4 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 if DEBUG:
     STATICFILES_DIRS = [
         os.path.join(BASE_DIR, 'assets', 'static'),
-        os.path.join(BASE_DIR, 'granite', 'static'),
     ]
