@@ -13,12 +13,15 @@ from pages.forms import (
 
 @admin.register(Template)
 class TemplateAdmin(VersionAdmin):
+    list_display = ('handle', 'site')
+    list_filter = ('site__name',)
     form = TemplateAdminForm
 
 
 @admin.register(Page)
 class PageAdmin(VersionAdmin):
     list_display = ('title', 'site', 'handle', 'role', 'description')
+    list_filter = ('site__name',)
     ordering = ('site', 'role', 'title')
     form = PageAdminForm
 

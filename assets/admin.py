@@ -9,11 +9,13 @@ from assets.models import (
 
 @admin.register(PlainTextAsset)
 class PlainTextAssetAdmin(VersionAdmin):
-    list_display = ('handle',)
+    list_display = ('handle', 'site')
+    list_filter = ('site__name',)
     form = PlainTextAssetAdminForm
 
 
 @admin.register(FileAsset)
 class FileAssetAdmin(admin.ModelAdmin):
-    list_display = ('handle', 'url',)
+    list_display = ('handle', 'site', 'url',)
+    list_filter = ('site__name',)
     readonly_fields = ('url',)
