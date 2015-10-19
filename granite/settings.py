@@ -116,5 +116,5 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 if DEBUG:
     STATICFILES_DIRS = [
         os.path.join(BASE_DIR, 'assets', 'static'),
-        os.path.join(BASE_DIR, 'granite', 'static', 'granite', 'js', 'ace-min-noconflict'),
+        os.path.join(BASE_DIR, 'granite', 'static'),
     ]

@@ -2,10 +2,8 @@ from django.db import models
 from django.contrib.auth.models import User
 from django.db.models.signals import post_save, pre_delete
 from django.dispatch import receiver
-
 from granite import validators
 from granite.core.objects import FSDuplicate
-
 from websites.models import Website
 
 
@@ -57,9 +55,9 @@ class Page(models.Model):
     template = models.ForeignKey(Template)
     role = models.CharField(max_length=2, choices=PAGE_ROLES, default=NONE)
     quick_link = models.BooleanField(default=False)
-    mtime = models.DateTimeField(auto_now=True)
     page_author = models.ForeignKey(User)
     published = models.BooleanField(default=True)
+    mtime = models.DateTimeField(auto_now=True)
 
     def __str__(self):
         return "%s/%s" % (self.site.handle, self.title)
@@ -67,7 +65,7 @@ class Page(models.Model):
     @property
     def description(self):
         def _fullstop(s):
-            s = s.strip()
+            s = str(s).strip()
             if s and not s.endswith('.'):
                 s += '.'
             return s

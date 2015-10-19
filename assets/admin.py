@@ -18,4 +18,5 @@ class PlainTextAssetAdmin(VersionAdmin):
 
 @admin.register(FileAsset)
 class FileAssetAdmin(admin.ModelAdmin):
-    list_display = ('handle', 'file')
+    list_display = ('handle', 'url', 'thumbnail_small')
+    readonly_fields = ('url', 'thumbnail_large',)

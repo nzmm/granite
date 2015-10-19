@@ -1,9 +1,7 @@
 __author__ = 'Matthew'
 
-import os.path
 from django import template
 from django.utils.safestring import mark_safe
-from granite.settings import STATIC_URL
 from assets.models import FileAsset, PlainTextAsset
 
 register = template.Library()
@@ -11,18 +9,14 @@ register = template.Library()
 
 @register.filter
 def asset_url(site, handle):
-    mode = 'text'
     try:
         asset = PlainTextAsset.objects.get(site=site, handle=handle)
     except PlainTextAsset.DoesNotExist:
         try:
             asset = FileAsset.objects.get(site=site, handle=handle)
-            mode = 'file'
         except FileAsset.DoesNotExist:
             return None
-    if mode == 'file':
-        return mark_safe('/'.join((STATIC_URL.rstrip('/'), os.path.split(asset.file.name)[-1])))
-    return mark_safe('/'.join((STATIC_URL.rstrip('/'), asset.handle)))
+    return mark_safe(asset.url())
 
 
 @register.filter
