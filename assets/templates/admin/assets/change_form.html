@@ -1,7 +1,6 @@
 {% extends "admin/change_form.html" %}
 
-{% block admin_change_form_document_ready %}
-    {% include "snippets/editor.html" %}
-
+{% block content %}
     {{ block.super }}
+    {% include "snippets/text-editor.html" %}
 {% endblock %}
