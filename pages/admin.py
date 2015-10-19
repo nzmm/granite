@@ -18,7 +18,7 @@ class TemplateAdmin(VersionAdmin):
 
 @admin.register(Page)
 class PageAdmin(VersionAdmin):
-    list_display = ('title', 'site', 'handle', 'role')
+    list_display = ('title', 'site', 'handle', 'role', 'description')
     ordering = ('site', 'role', 'title')
 
     def formfield_for_foreignkey(self, db_field, request=None, **kwargs):
