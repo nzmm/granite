@@ -22,7 +22,7 @@ def retrieve_with_handle(request, site_handle):
 
 
 def retrieve_with_host(request):
-    host_match = request.get_host().split('.', maxsplit=1)[-1]
+    host_match = request.get_host().split('.', 1)[-1]
     site = Website.objects.get(hosts__contains=host_match)
     data = std_contextual_data(request, site)
 
