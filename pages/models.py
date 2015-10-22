@@ -21,7 +21,7 @@ class Template(models.Model, FSDuplicate):
 
     @property
     def fs_root(self):
-        return os.path.join(G_TEMPLATE_ROOT, self.site.handle, self.handle)
+        return os.path.join(G_TEMPLATE_ROOT, self.site.handle)
 
     @property
     def template_path(self):
