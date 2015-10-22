@@ -1,4 +1,5 @@
 from django.db import models
+from django.utils.safestring import mark_safe
 
 
 class Website(models.Model):
@@ -11,3 +12,10 @@ class Website(models.Model):
 
     def __str__(self):
         return self.name
+
+    def toplevel_pages(self):
+        from pages.models import Page
+        return Page.objects.filter(site=self, role__gte=1000, published=True)
+
+    def link_list(self):
+        return [mark_safe('<a href="%s">%s</a>' % (p.handle, p.title)) for p in self.toplevel_pages()]

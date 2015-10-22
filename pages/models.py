@@ -1,7 +1,7 @@
 import os
 import markdown
 from django.db import models
-from granite.settings import BASE_DIR, G_TEMPLATE_ROOT
+from granite.settings import G_TEMPLATE_ROOT
 from django.contrib.auth.models import User
 from django.utils.safestring import mark_safe
 from django.db.models.signals import post_save, pre_delete
@@ -52,15 +52,18 @@ def template_pre_delete_handler(sender, **kwargs):
 
 
 class Page(models.Model):
-
-    NONE = 'NN'
-    HOME = 'HM'
-    ERROR = 'ER'
+    CLIENT_ERR = 400
+    SERVER_ERR = 500
+    SUB_LEVEL = 999
+    HOME = 1000
+    TOP_LEVEL = 1001
 
     PAGE_ROLES = (
-        (NONE, 'Standard Page'),
+        (TOP_LEVEL, 'Top-level Page'),
+        (SUB_LEVEL, 'Sub-level Page'),
         (HOME, 'Home Page'),
-        (ERROR, 'Error Page'),
+        (CLIENT_ERR, 'Client Error Page (4xx)'),
+        (SERVER_ERR, 'Server Error Page (5xx)'),
     )
 
     site = models.ForeignKey(Website)
@@ -69,7 +72,7 @@ class Page(models.Model):
     page_description = models.CharField(max_length=255, blank=True, default='')
     content = models.TextField(default='', blank=True)
     template = models.ForeignKey(Template)
-    role = models.CharField(max_length=2, choices=PAGE_ROLES, default=NONE)
+    role = models.PositiveSmallIntegerField(choices=PAGE_ROLES, default=TOP_LEVEL)
     page_author = models.ForeignKey(User)
     published = models.BooleanField(default=True)
     mtime = models.DateTimeField(auto_now=True)
