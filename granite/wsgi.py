@@ -9,6 +9,7 @@ https://docs.djangoproject.com/en/1.8/howto/deployment/wsgi/
 
 import os
 from django.core.wsgi import get_wsgi_application
+os.chdir('/home/matthew/granite')
 
 
 print('granite.wsgi', os.getcwd())
