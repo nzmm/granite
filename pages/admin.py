@@ -15,6 +15,7 @@ from pages.forms import (
 class TemplateAdmin(VersionAdmin):
     list_display = ('handle', 'site')
     list_filter = ('site__name',)
+    readonly_fields = ('template_path',)
     form = TemplateAdminForm
 
 
