@@ -27,9 +27,9 @@ def retrieve_with_host(request):
     data = std_contextual_data(request, site)
 
     if request.path == '/':
-        pages = Page.objects.filter(site__handle=site_handle, role=Page.HOME, published=True)
+        pages = Page.objects.filter(site=site, role=Page.HOME, published=True)
     else:
-        pages = Page.objects.filter(site__handle=site_handle, handle=path, published=True)
+        pages = Page.objects.filter(site=site, handle=path, published=True)
     if not pages:
         return render(request, 'nopages.html', data)
 
