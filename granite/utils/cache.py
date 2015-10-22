@@ -21,15 +21,15 @@ class FSDuplicate(object):
 
     @property
     def data(self):
-        raise NotImplementedError('Any class inheriting FSDuplicate should implement their own data property')
+        raise NotImplementedError('Any class inheriting FSDuplicate should implement their own <data> property')
 
     @property
     def fs_root(self):
-        raise NotImplementedError('Any class inheriting FSDuplicate should implement their own fs_root property')
+        raise NotImplementedError('Any class inheriting FSDuplicate should implement their own <fs_root> property')
 
     @property
     def fs_name(self):
-        return hashed_filename(self, self.handle)
+        raise NotImplementedError('Any class inheriting FSDuplicate should implement their own <fs_name> property')
 
     @property
     def fs_full_path(self):

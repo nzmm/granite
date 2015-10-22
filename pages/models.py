@@ -12,6 +12,8 @@ from websites.models import Website
 
 
 class Template(models.Model, FSDuplicate):
+    FS_TYPE = 'template'
+
     site = models.ForeignKey(Website)
     handle = models.CharField(max_length=48)
     markup = models.TextField(default='')
@@ -22,6 +24,10 @@ class Template(models.Model, FSDuplicate):
     @property
     def fs_root(self):
         return os.path.join(G_TEMPLATE_ROOT, self.site.handle)
+
+    @property
+    def fs_name(self):
+        return self.handle
 
     @property
     def template_path(self):

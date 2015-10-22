@@ -4,8 +4,12 @@ from django.db import models
 from django.db.models.signals import post_save
 from django.dispatch import receiver
 from granite.settings import STATIC_ROOT, STATIC_URL, G_TEXT_ROOT
-from granite.utils.cache import FSDuplicate, path_and_rename
 from websites.models import Website
+from granite.utils.cache import (
+    FSDuplicate,
+    hashed_filename,
+    path_and_rename
+)
 
 
 class PlainTextAsset(models.Model, FSDuplicate):
@@ -16,6 +20,10 @@ class PlainTextAsset(models.Model, FSDuplicate):
     @property
     def fs_root(self):
         return G_TEXT_ROOT
+
+    @property
+    def fs_name(self):
+        return hashed_filename(self, self.handle)
 
     @property
     def data(self):
