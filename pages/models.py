@@ -1,6 +1,7 @@
+import os
 import markdown
 from django.db import models
-from granite.settings import G_TEMPLATE_ROOT
+from granite.settings import BASE_DIR, G_TEMPLATE_ROOT
 from django.contrib.auth.models import User
 from django.utils.safestring import mark_safe
 from django.db.models.signals import post_save, pre_delete
@@ -21,6 +22,10 @@ class Template(models.Model, FSDuplicate):
     @property
     def fs_root(self):
         return G_TEMPLATE_ROOT
+
+    @property
+    def template_path(self):
+        return self.fs_root.rstrip(BASE_DIR).replace(os.sep, '/')
 
     @property
     def data(self):
