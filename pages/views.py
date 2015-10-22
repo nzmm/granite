@@ -4,6 +4,7 @@ from granite.utils.views import std_contextual_data
 
 
 def retriever(request, site_handle):
+    print(request.get_host())
     path = request.path.split(site_handle, 1)[-1]
     data = std_contextual_data(request, site_handle)
 
