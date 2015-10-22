@@ -114,5 +114,6 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 
 MEDIA_ROOT = os.path.join(STATIC_ROOT, 'media')
 
+G_TEMPLATE_ROOT = os.path.join(BASE_DIR, 'pages', 'templates', 'g')
 G_TEXT_ROOT = os.path.join(MEDIA_ROOT, 'plaintext')
 G_FILE_ROOT = os.path.join(MEDIA_ROOT, 'files')

@@ -3,7 +3,7 @@ from __future__ import unicode_literals
 
 from django.db import models, migrations
 from django.conf import settings
-import granite.core.objects
+import granite.utils.cache
 import granite.validators
 
 
@@ -39,7 +39,7 @@ class Migration(migrations.Migration):
                 ('markup', models.TextField(default='')),
                 ('site', models.ForeignKey(to='websites.Website')),
             ],
-            bases=(models.Model, granite.core.objects.FSDuplicate),
+            bases=(models.Model, granite.utils.cache.FSDuplicate),
         ),
         migrations.AddField(
             model_name='page',

@@ -1,26 +1,26 @@
-import os
 import markdown
 from django.db import models
-from granite.settings import BASE_DIR
+from granite.settings import G_TEMPLATE_ROOT
 from django.contrib.auth.models import User
 from django.utils.safestring import mark_safe
 from django.db.models.signals import post_save, pre_delete
 from django.dispatch import receiver
-from granite.core.objects import FSDuplicate
+from granite.utils.cache import FSDuplicate
 from granite import validators
 from websites.models import Website
 
 
 class Template(models.Model, FSDuplicate):
-    TEMPLATE_REL_ROOT = 'g'
-    FS_ROOT = os.path.join(BASE_DIR, 'pages', 'templates', 'g')
-
     site = models.ForeignKey(Website)
     handle = models.CharField(max_length=48)
     markup = models.TextField(default='')
 
     def __str__(self):
         return "%s/%s" % (self.site.handle, self.handle)
+
+    @property
+    def fs_root(self):
+        return G_TEMPLATE_ROOT
 
     @property
     def data(self):
@@ -74,6 +74,11 @@ class Page(models.Model):
                 s += '.'
             return s
         return _fullstop(self.page_description) or _fullstop(self.site.description)
+
+    @property
+    def template_path(self):
+        # django relative template path
+        return '/'.join(p for p in (self.TEMPLATE_REL_ROOT, self.site.handle, self.fs_name) if p.strip())
 
     @property
     def content_html(self):

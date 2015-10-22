@@ -9,7 +9,7 @@ from assets.models import (
 
 @admin.register(PlainTextAsset)
 class PlainTextAssetAdmin(VersionAdmin):
-    list_display = ('handle', 'site')
+    list_display = ('handle', 'site', 'url')
     list_filter = ('site__name',)
     form = PlainTextAssetAdminForm
 

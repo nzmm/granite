@@ -2,7 +2,7 @@
 from __future__ import unicode_literals
 
 from django.db import models, migrations
-import granite.core.objects
+import granite.utils.cache
 
 
 class Migration(migrations.Migration):
@@ -29,6 +29,6 @@ class Migration(migrations.Migration):
                 ('text', models.TextField(default='')),
                 ('site', models.ForeignKey(to='websites.Website')),
             ],
-            bases=(models.Model, granite.core.objects.FSDuplicate),
+            bases=(models.Model, granite.utils.cache.FSDuplicate),
         ),
     ]
