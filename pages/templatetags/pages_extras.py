@@ -3,6 +3,7 @@ __author__ = 'Matthew'
 from django import template
 from django.utils.safestring import mark_safe
 from assets.models import FileAsset, PlainTextAsset
+from pages.models import Page
 
 register = template.Library()
 
@@ -32,6 +33,22 @@ def script_tag(url):
 @register.filter
 def img_tag(url, attrs=''):
     return mark_safe('<img src="%s" %s>' % (url, attrs))
+
+
+@register.filter
+def page_link(site, page_handle):
+    pages = Page.objects.filter(site=site, published=True, handle__contains=page_handle)
+    if pages:
+        page_handle = pages.first().handle
+    else:
+        page_handle = '/pages/nosuchpage/'
+    if not page_handle.startswith('/pages/'):
+        page_handle = '/pages/%s' % page_handle
+    if not page_handle.endswith('/'):
+        page_handle += '/'
+    if site.link_with_site_handle:
+        return '/%s%s' % (site.handle, page_handle)
+    return page_handle
 
 
 @register.filter

@@ -3,8 +3,12 @@ __author__ = 'Matthew'
 from websites.models import Website
 
 
+def get_host_matcher(request):
+    return request.get_host().split('.', 1)[-1]
+
+
 def site_from_host(request):
-    host_match = request.get_host().split('.', 1)[-1]
+    host_match = get_host_matcher(request)
     try:
         site = Website.objects.get(hosts__contains=host_match)
     except Website.DoesNotExist:

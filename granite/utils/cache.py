@@ -7,7 +7,7 @@ from granite.settings import G_FILE_ROOT
 
 def hashed_filename(instance, filename):
     filename = filename.lower().replace(' ', '_')
-    fuzz = hashlib.md5(str(instance.site.pk).encode('utf-8') + str(instance.pk).encode('utf-8')).hexdigest()
+    fuzz = hashlib.md5(str(instance.site.pk).encode('utf-8') + str(filename).encode('utf-8')).hexdigest()
     return "%s_%s" % (fuzz, filename)
 
 

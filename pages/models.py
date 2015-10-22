@@ -12,8 +12,6 @@ from websites.models import Website
 
 
 class Template(models.Model, FSDuplicate):
-    FS_TYPE = 'template'
-
     site = models.ForeignKey(Website)
     handle = models.CharField(max_length=48)
     markup = models.TextField(default='')

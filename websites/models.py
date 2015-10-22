@@ -10,6 +10,10 @@ class Website(models.Model):
     authors = models.CharField(max_length=255, default='', blank=True)
     copyright = models.CharField(max_length=255, default='', blank=True)
 
+    def __init__(self, *args, **kwargs):
+        super(Website, self).__init__(*args, **kwargs)
+        self.link_with_site_handle = False
+
     def __str__(self):
         return self.name
 
