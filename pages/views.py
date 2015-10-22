@@ -29,7 +29,7 @@ def retrieve_with_host(request):
     if request.path == '/':
         pages = Page.objects.filter(site=site, role=Page.HOME, published=True)
     else:
-        pages = Page.objects.filter(site=site, handle=path, published=True)
+        pages = Page.objects.filter(site=site, handle=request.path, published=True)
     if not pages:
         return render(request, 'nopages.html', data)
 
