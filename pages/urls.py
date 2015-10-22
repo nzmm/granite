@@ -22,6 +22,6 @@ from pages.views import (
 urlpatterns = [
     url(r'^(?P<site_handle>\w+)/$', retrieve_with_handle),
     url(r'^(?P<site_handle>\w+)/pages/', retrieve_with_handle),
-    url(r'^/$', retrieve_with_host),
-    url(r'^/pages/', retrieve_with_host),
+    url(r'^$', retrieve_with_host),
+    url(r'^pages/', retrieve_with_host),
 ]
