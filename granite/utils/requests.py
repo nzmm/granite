@@ -8,5 +8,17 @@ def site_from_host(request):
     try:
         site = Website.objects.get(hosts__contains=host_match)
     except Website.DoesNotExist:
-        return ''
+        return None
     return site
+
+
+def page_within_scope(request, handle):
+    site = site_from_host(request)
+    if site is None:
+        if request.user.is_superuser():
+            return True
+        return False
+    elif site.handle == handle:
+        return True
+    return False
+
