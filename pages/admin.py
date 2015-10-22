@@ -13,9 +13,9 @@ from pages.forms import (
 
 @admin.register(Template)
 class TemplateAdmin(VersionAdmin):
-    list_display = ('handle', 'site', 'template_path', 'fs_full_path')
+    list_display = ('handle', 'site', 'template_path')
     list_filter = ('site__name',)
-    readonly_fields = ('template_path',)
+    readonly_fields = ('template_path', 'fs_full_path')
     form = TemplateAdminForm
 
 
