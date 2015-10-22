@@ -13,7 +13,7 @@ from pages.forms import (
 
 @admin.register(Template)
 class TemplateAdmin(VersionAdmin):
-    list_display = ('handle', 'site')
+    list_display = ('handle', 'site', 'template_path')
     list_filter = ('site__name',)
     readonly_fields = ('template_path',)
     form = TemplateAdminForm

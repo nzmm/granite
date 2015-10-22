@@ -21,11 +21,11 @@ class Template(models.Model, FSDuplicate):
 
     @property
     def fs_root(self):
-        return G_TEMPLATE_ROOT
+        return os.path.join(G_TEMPLATE_ROOT, self.site.handle, self.handle)
 
     @property
     def template_path(self):
-        return self.fs_root.rstrip(BASE_DIR).replace(os.sep, '/')
+        return '/'.join(('g', self.site.handle, self.handle))
 
     @property
     def data(self):
