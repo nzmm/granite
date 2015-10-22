@@ -12,10 +12,7 @@ def hashed_filename(instance, filename):
 
 def path_and_rename(path):
     def wrapper(instance, filename):
-        print(filename)
-        out = os.path.join(path, hashed_filename(instance, filename))
-        print(out)
-        return out
+        return os.path.join(path, hashed_filename(instance, filename))
     return wrapper
 
 
