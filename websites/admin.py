@@ -4,4 +4,4 @@ from websites.models import Website
 
 @admin.register(Website)
 class WebsiteAdmin(admin.ModelAdmin):
-    list_display = ('name', 'domain', 'description')
+    list_display = ('name', 'hosts', 'description')

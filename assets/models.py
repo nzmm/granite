@@ -3,7 +3,7 @@ import os.path
 from django.db import models
 from django.db.models.signals import post_save
 from django.dispatch import receiver
-from granite.settings import STATIC_ROOT, STATIC_URL, G_TEXT_ROOT, G_FILE_ROOT
+from granite.settings import STATIC_ROOT, STATIC_URL, G_TEXT_ROOT
 from granite.utils.cache import FSDuplicate, path_and_rename
 from websites.models import Website
 
@@ -36,7 +36,7 @@ def plaintext_asset_post_save_handler(sender, **kwargs):
 class FileAsset(models.Model):
     site = models.ForeignKey(Website)
     handle = models.CharField(max_length=48)
-    file = models.FileField(upload_to=path_and_rename(G_FILE_ROOT))
+    file = models.FileField(upload_to=path_and_rename)
 
     def url(self):
         return '/'.join((STATIC_URL.rstrip('/'), 'media', 'files', os.path.split(self.file.name)[-1]))

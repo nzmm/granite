@@ -14,9 +14,14 @@ Including another URLconf
     2. Add a URL to urlpatterns:  url(r'^blog/', include(blog_urls))
 """
 from django.conf.urls import url
-from pages.views import retriever
+from pages.views import (
+    retrieve_with_handle,
+    retrieve_with_host
+)
 
 urlpatterns = [
-    url(r'^(?P<site_handle>\w+)/$', retriever),
-    url(r'^(?P<site_handle>\w+)/pages/', retriever),
+    url(r'^(?P<site_handle>\w+)/$', retrieve_with_handle),
+    url(r'^(?P<site_handle>\w+)/pages/', retrieve_with_handle),
+    url(r'^/$', retrieve_with_host),
+    url(r'^/pages/', retrieve_with_host),
 ]

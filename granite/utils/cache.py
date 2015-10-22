@@ -2,6 +2,7 @@ __author__ = 'Matthew'
 
 import os.path
 import hashlib
+from granite.settings import G_FILE_ROOT
 
 
 def hashed_filename(instance, filename):
@@ -10,10 +11,8 @@ def hashed_filename(instance, filename):
     return "%s_%s" % (fuzz, filename)
 
 
-def path_and_rename(path):
-    def wrapper(instance, filename):
-        return os.path.join(path, hashed_filename(instance, filename))
-    return wrapper
+def path_and_rename(instance, filename):
+    return os.path.join(G_FILE_ROOT, hashed_filename(instance, filename))
 
 
 class FSDuplicate(object):
