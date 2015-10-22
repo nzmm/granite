@@ -15,7 +15,7 @@ def site_from_host(request):
 def page_within_scope(request, handle):
     site = site_from_host(request)
     if site is None:
-        if request.user.is_superuser:
+        if request.user.is_active:
             return True
         return False
     elif site.handle == handle:
