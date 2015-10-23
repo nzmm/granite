@@ -15,7 +15,7 @@ def retrieve_with_handle(request, site_handle):
     path = request.path.split(site_handle, 1)[-1]
     data = std_contextual_data(request, site_handle=site_handle)
 
-    if path == '/':
+    if path.split(site_handle, 1)[-1] == '/':
         pages = Page.objects.filter(site__handle=site_handle, role=Page.HOME, published=True)
     else:
         pages = Page.objects.filter(site__handle=site_handle, handle=path, published=True)
