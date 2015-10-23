@@ -4,7 +4,10 @@ from websites.models import Website
 
 
 def get_host_matcher(request):
-    return request.get_host().split('.', 1)[-1]
+    host = request.get_host()
+    if host.count('.') >= 2:
+        return host.split('.', 1)[-1]
+    return host
 
 
 def site_from_host(request):
