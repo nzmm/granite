@@ -13,6 +13,8 @@ def site_from_host(request):
         site = Website.objects.get(hosts__contains=host_match)
     except Website.DoesNotExist:
         return None
+    except Website.MultipleObjectsReturned:
+        print(Website.objects.filter(hosts__contains=host_match))
     return site
 
 
