@@ -19,6 +19,7 @@ def retrieve_with_handle(request, site_handle):
 
     if path.split(site_handle, 1)[-1] == '/':
         pages = Page.objects.filter(site__handle=site_handle, role=Page.HOME, published=True)
+        print(pages)
     else:
         pages = Page.objects.filter(site__handle=site_handle, handle=path, published=True)
     if not pages:
