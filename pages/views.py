@@ -8,6 +8,7 @@ from granite.utils.requests import (
 
 
 def retrieve_with_handle(request, site_handle):
+    print('retrieve_with_handle')
     if not page_within_scope(request, site_handle):
         return redirect('/')
 
@@ -28,6 +29,7 @@ def retrieve_with_handle(request, site_handle):
 
 
 def retrieve_with_host(request):
+    print('retrieve_with_host')
     site = site_from_host(request)
     data = std_contextual_data(request, site)
 
