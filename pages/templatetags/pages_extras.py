@@ -43,12 +43,12 @@ def page_link(site, page_handle):
         page_handle = pages.first().handle
     else:
         page_handle = '/pages/nosuchpage/'
-    if not page_handle.startswith('/pages/'):
+    if not page_handle.startswith('pages/'):
         page_handle = '/pages/%s' % page_handle
     if not page_handle.endswith('/'):
         page_handle += '/'
     if site.link_with_site_handle:
-        return '/%s' % '/'.join(p.rstrip('/') for p in (G_URL_PATH, site.handle, page_handle))
+        return '%s/%s%s' % (G_URL_PATH, site.handle, page_handle)
     return page_handle
 
 
