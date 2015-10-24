@@ -1,6 +1,5 @@
 __author__ = 'matthew'
 
-from granite.utils.requests import get_host_matcher
 from websites.models import Website
 
 
