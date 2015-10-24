@@ -6,8 +6,7 @@ from websites.models import Website
 
 def std_contextual_data(request, site=None, site_handle=''):
     site = site or Website.objects.get(handle=site_handle)
-    print(request.get_host(), request.path, site, site_handle)
-    site.link_with_site_handle = get_host_matcher(request) in site.hosts
+    site.link_with_site_handle = site_handle != ''
 
     ct = {
         'user': request.user,
