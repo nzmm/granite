@@ -106,10 +106,12 @@ USE_L10N = True
 USE_TZ = True
 
 
-# Static files (CSS, JavaScript, Images)
+# Granite, Static files and other bits
 # https://docs.djangoproject.com/en/1.8/howto/static-files/
 
-STATIC_URL = '/granite/static/'
+G_URL_PATH = '/granite'
+
+STATIC_URL = '%s/%s' % (G_URL_PATH, 'static/')
 STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 
 MEDIA_ROOT = os.path.join(STATIC_ROOT, 'media')
@@ -117,4 +119,3 @@ MEDIA_ROOT = os.path.join(STATIC_ROOT, 'media')
 G_TEMPLATE_ROOT = os.path.join(BASE_DIR, 'pages', 'templates', 'g')
 G_TEXT_ROOT = os.path.join(MEDIA_ROOT, 'plaintext')
 G_FILE_ROOT = os.path.join(MEDIA_ROOT, 'files')
-G_URL_PATH = '/granite'

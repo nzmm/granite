@@ -1,13 +1,12 @@
 __author__ = 'Matthew'
 
+import tldextract
 from websites.models import Website
 
 
 def get_host_matcher(request):
-    host = request.get_host()
-    if host.count('.') >= 2:
-        return host.split('.', 1)[-1]
-    return host
+    ext = tldextract.extract(request.get_host())
+    return ext.registered_domain
 
 
 def site_from_host(request):
