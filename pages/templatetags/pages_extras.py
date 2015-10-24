@@ -2,6 +2,7 @@ __author__ = 'Matthew'
 
 from django import template
 from django.utils.safestring import mark_safe
+from granite.settings import G_URL_PATH
 from assets.models import FileAsset, PlainTextAsset
 from pages.models import Page
 
@@ -47,7 +48,7 @@ def page_link(site, page_handle):
     if not page_handle.endswith('/'):
         page_handle += '/'
     if site.link_with_site_handle:
-        return '/%s%s' % (site.handle, page_handle)
+        return '/%s' % '/'.join(p.rstrip('/') for p in (G_URL_PATH, site.handle, page_handle))
     return page_handle
 
 
