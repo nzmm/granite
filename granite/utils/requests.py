@@ -25,6 +25,7 @@ def site_from_host(request):
 
 def page_within_scope(request, handle):
     site = site_from_host(request)
+    print(site, request.user.is_active)
     if site is None:
         if request.user.is_active:
             return True
