@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/1.8/ref/settings/
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 import os
+import logging
 from granite.utils.crypto import read_secret
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -25,6 +26,7 @@ SECRET_KEY = read_secret(os.path.join(BASE_DIR, '.secret', 'my.secret'))
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
+
 
 ALLOWED_HOSTS = []
 
@@ -119,3 +121,10 @@ MEDIA_ROOT = os.path.join(STATIC_ROOT, 'media')
 G_TEMPLATE_ROOT = os.path.join(BASE_DIR, 'pages', 'templates', 'g')
 G_TEXT_ROOT = os.path.join(MEDIA_ROOT, 'plaintext')
 G_FILE_ROOT = os.path.join(MEDIA_ROOT, 'files')
+
+
+# logging
+if DEBUG:
+    logging.basicConfig(level=logging.DEBUG)
+else:
+    logging.basicConfig(level=logging.WARN)
